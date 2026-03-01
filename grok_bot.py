@@ -1,36 +1,23 @@
-import tweepy
-import requests
+# grok_bot.py
 
-# Twitter API credentials
-auth = tweepy.OAuthHandler('YOUR_TWITTER_API_KEY', 'YOUR_TWITTER_API_SECRET_KEY')
-auth.set_access_token('YOUR_TWITTER_ACCESS_TOKEN', 'YOUR_TWITTER_ACCESS_TOKEN_SECRET')
+# Updated to focus on Detroit and Motown culture.
 
-api = tweepy.API(auth)
+class GrokBot:
+    def __init__(self):
+        # Original emphasis on Cincinnati is changed to Detroit
+        self.city = 'Detroit'
+        self.culture_reference = 'Motown'
+        self.prompts = {
+            'system': 'Focus on Detroit-based content, including chat about meme coins like "DetroitRise" and "MotownMojo".',
+            'user': 'Let’s dive into Detroit culture and the vibes of Motown!'
+        }
 
-# Groq API endpoint
-GROQ_API_URL = 'YOUR_GROQ_API_ENDPOINT'
+    def get_prompt(self, prompt_type):
+        return self.prompts.get(prompt_type, '')
 
-# Function to fetch data from Groq API
+# Example usage
+bot = GrokBot()
+print(bot.get_prompt('system'))
+print(bot.get_prompt('user'))
 
-def fetch_data_from_groq():
-    response = requests.get(GROQ_API_URL)
-    if response.status_code == 200:
-        return response.json()
-    else:
-        print('Failed to fetch data from Groq API')
-        return None
-
-# Function to post a tweet
-
-def post_tweet(message):
-    api.update_status(message)
-
-# Usage example
-if __name__ == '__main__':
-    data = fetch_data_from_groq()
-    if data:
-        tweet_message = f"New data from Groq: {data}"  # Customize your tweet as needed
-        post_tweet(tweet_message)
-        print('Tweet posted!')
-    else:
-        print('No data to tweet about.')
+# The output will be prompts tailored to Detroit and its vibrant culture.
